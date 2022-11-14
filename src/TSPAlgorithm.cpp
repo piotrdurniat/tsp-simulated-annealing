@@ -173,9 +173,82 @@ void TSPAlgorithm::invert(int index1, int index2)
     }
 }
 
+void TSPAlgorithm::swap(int index1, int index2)
+{
+    if (index1 > index2)
+    {
+        std::swap(index1, index2);
+    }
+
+    // Copy current path into new path
+    for (int i = 0; i < graphSize; ++i)
+    {
+        nextPath[i] = currentPath[i];
+    }
+
+    // Swap vertex on index1 with vertex on index2
+    nextPath[index1] = currentPath[index2];
+    nextPath[index2] = currentPath[index1];
+
+    nextPathWeight = currentPathWeight;
+
+    // Path before swap: ... -> A1 -> B1 -> C1 -> ... -> A2 -> B2 -> C2 ->
+    // Path after swap:  ... -> A1 -> B2 -> C1 -> ... -> A2 -> B1 -> C2 ->
+
+    int A1 = index1 - 1;
+    if (A1 == -1)
+    {
+        A1 = graphSize - 1;
+    }
+    const int B1 = index1;
+    int C1 = index1 + 1;
+    if (C1 == graphSize)
+    {
+        C1 = 0;
+    }
+
+    int A2 = index2 - 1;
+    if (A2 == -1)
+    {
+        A2 = graphSize - 1;
+    }
+    const int B2 = index2;
+    int C2 = index2 + 1;
+    if (C2 == graphSize)
+    {
+        C2 = 0;
+    }
+
+    // Remove old edges
+    nextPathWeight -= getWeight(A1, B1);
+    nextPathWeight -= getWeight(B1, C1);
+
+    if (C1 != B2)
+    {
+        nextPathWeight -= getWeight(A2, B2);
+    }
+
+    nextPathWeight -= getWeight(B2, C2);
+
+    // Add new edges
+    nextPathWeight += getNextWeight(A1, B1);
+    nextPathWeight += getNextWeight(B1, C1);
+
+    if (C1 != B2)
+    {
+        nextPathWeight += getNextWeight(A2, B2);
+    }
+    nextPathWeight += getNextWeight(B2, C2);
+}
+
 int TSPAlgorithm::getWeight(int index1, int index2)
 {
     return graph->getWeight(currentPath[index1], currentPath[index2]);
+}
+
+int TSPAlgorithm::getNextWeight(int index1, int index2)
+{
+    return graph->getWeight(nextPath[index1], nextPath[index2]);
 }
 
 void TSPAlgorithm::printPath(int *path)

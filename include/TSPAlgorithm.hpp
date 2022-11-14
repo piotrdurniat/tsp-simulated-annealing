@@ -14,6 +14,12 @@ enum InitialPathMode
     InOrder,
 };
 
+enum NeighborMode
+{
+    Swap,
+    Invert,
+};
+
 class TSPAlgorithm
 {
 protected:
@@ -44,6 +50,7 @@ protected:
     int maxExecutionTime = 30000;
 
     InitialPathMode initialPathMode = Greedy;
+    NeighborMode neighborMode = Invert;
     Timer timer;
 
     /**
@@ -72,10 +79,20 @@ protected:
     // Gets the new path by inverteing a path between index1 and index2 inclusive
     void invert(int index1, int index2);
 
+    // Gets the new path by swaping vertex at index1 with vertex at index2
+    void swap(int index1, int index2);
+
     /**
-     * @brief Returns the edge weight connecting vertices located in currentPath array with indices index1 and index2
+     * @brief Returns the edge weight between vertices from currentPath
+     * at indices index1 and index2
      */
     int getWeight(int index1, int index2);
+
+    /**
+     * @brief Returns the edge weight between vertices from nextPath
+     * at indices index1 and index2
+     */
+    int getNextWeight(int index1, int index2);
 
     void printPath(int *path);
 

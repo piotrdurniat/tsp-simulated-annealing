@@ -104,7 +104,15 @@ void SimulatedAnnealing::getNextPathPermutation()
         index2 = randomPathIndex();
     } while (index1 == index2 || index1 == 0 || index2 == 0);
 
-    invert(index1, index2);
+    switch (neighborMode)
+    {
+    case Swap:
+        swap(index1, index2);
+        break;
+    case Invert:
+        invert(index1, index2);
+        break;
+    }
 }
 
 double SimulatedAnnealing::transitionProbability(double temperature)
