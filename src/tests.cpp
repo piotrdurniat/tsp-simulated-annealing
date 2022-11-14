@@ -23,7 +23,7 @@ void Tests::fileInstanceTest(GraphMatrix *graph, int iterCount, std::string inst
 
         bool isCorrect = path.weight == graph->optimum;
 
-        TestResult testResult(instanceName, elapsedTime, path, path.prd);
+        TestResult testResult(instanceName, graph->getVertexCount(), elapsedTime, path, path.prd);
 
         FileUtils::appendTestResult(outputPath, testResult);
     }

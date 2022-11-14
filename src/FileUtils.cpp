@@ -45,7 +45,7 @@ void FileUtils::writeInstanceTestHeader(std::string filePath)
 
     // PRD - Percentage difference between calculated weight and the optimal weight
 
-    fout << "instance, execution time [ns], path, path weight, prd\n";
+    fout << "instance, number of vertices, execution time [ns], path, path weight, error [%]\n";
     fout.close();
 }
 
@@ -60,13 +60,15 @@ void FileUtils::appendTestResult(std::string filePath, TestResult testResult)
 
     ofs << testResult.instanceName
         << ", "
+        << testResult.vertexCount
+        << ", "
         << testResult.elapsedTime
         << ", "
         << pathToStr(testResult.path.vertices)
         << ", "
         << testResult.path.weight
         << ", "
-        << testResult.prd << "%"
+        << testResult.prd
         << "\n";
 
     ofs.close();

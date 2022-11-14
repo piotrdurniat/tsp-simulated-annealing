@@ -69,7 +69,7 @@ void fileInstanceTest()
         if (graph == NULL)
         {
             printf("File not found.\n");
-            return;
+            continue;
         }
         printf("Graph read from file:\n");
         graph->display();
