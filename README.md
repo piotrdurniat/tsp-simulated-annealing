@@ -3,7 +3,21 @@
 ## Measure RAM usage over time:
 
 ```bash
-valgrind --tool=massif ./bin/main
+./valgrind-mem.sh <massif_out_file> <csv_out_file>
+
+```
+
+example:
+
+```bash
+./valgrind-mem.sh massif.out mem.csv
+
+```
+
+### Ms print
+
+```bash
+ms_print <out_file>
 ```
 
 ## Get max RAM usage

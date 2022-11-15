@@ -1,4 +1,5 @@
 #include "../lib/SimpleIni.h"
+#include "AlgorithmParams.hpp"
 
 CSimpleIniA ini;
 
@@ -8,4 +9,4 @@ void fileInstanceTest();
 
 void randomInstanceTest();
 
-void timeTest();
+AlgorithmParams getAlorithmParams();

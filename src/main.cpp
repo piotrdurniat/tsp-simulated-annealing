@@ -7,6 +7,7 @@
 #include "tests.hpp"
 #include "GraphMatrix.hpp"
 #include "printColor.hpp"
+#include "TSPAlgorithm.hpp"
 
 int main(void)
 {
@@ -47,6 +48,7 @@ void fileInstanceTest()
     const std::string outputDir = ini.GetValue("common", "output_dir", "./results");
 
     const int instanceCount = atoi(ini.GetValue("file_instance_test", "number_of_instances", "1"));
+    const auto params = getAlorithmParams();
 
     for (int i = 0; i < instanceCount; i++)
     {
@@ -97,4 +99,31 @@ void randomInstanceTest()
     const std::string outputFilePath = outputDir + "/" + outputFile;
 
     Tests::randomInstanceTest(minSize, maxSize, iterCountPerInstance, instanceCountPerSize, outputFilePath);
+}
+
+AlgorithmParams getAlorithmParams()
+{
+    const char *tag = "algorithm_params";
+    InitialPathMode initialPathMode;
+    NeighborMode neighborMode;
+
+    int maxExecTimeMs = atoi(ini.GetValue(tag, "max_exec_time_ms", "30000"));
+
+    std::string initialPathModeStr = ini.GetValue(tag, "initial_path_mode", "greedy");
+    std::string neighborModeStr = ini.GetValue(tag, "neighbor_mode", "swap");
+    float coolingRate = std::stof(ini.GetValue(tag, "cooling_rate", "0.999"));
+
+    std::cout << initialPathModeStr;
+
+    initialPathMode = initialPathModeStr == "greedy" ? Greedy : InOrder;
+    neighborMode = neighborModeStr == "swap" ? Swap : Invert;
+
+    auto params = AlgorithmParams(
+        maxExecTimeMs,
+        initialPathMode,
+        neighborMode,
+        coolingRate);
+
+    params.print();
+    return params;
 }
