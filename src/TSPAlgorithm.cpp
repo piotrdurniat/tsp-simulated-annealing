@@ -4,9 +4,7 @@
 TSPAlgorithm::TSPAlgorithm(GraphMatrix *graph)
 {
     this->graph = graph;
-
     this->graphSize = graph->getVertexCount();
-
     this->currentPath = new int[graphSize];
     this->nextPath = new int[graphSize];
     this->bestFoundPath = new int[graphSize];

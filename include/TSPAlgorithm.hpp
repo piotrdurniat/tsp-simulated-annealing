@@ -39,19 +39,19 @@ protected:
     // Current number of iterations without improvement
     int noImprovementIters = 0;
     // The maximum number of iterations without improvement
-    int maxNoImprovementIters;
     bool satisfactoryResult = false;
 
     int initialPathWeight;
     // The time when the algorithm started [ms]
     std::chrono::_V2::steady_clock::time_point startTime;
 
-    // The maximum allowed time for the algorithm execution [ms]
-    int maxExecutionTime = 30000;
-
-    InitialPathMode initialPathMode = Greedy;
-    NeighborMode neighborMode = Invert;
     Timer timer;
+
+    // Algorithm params
+    int maxNoImprovementIters;
+    int maxExecutionTime;
+    InitialPathMode initialPathMode;
+    NeighborMode neighborMode;
 
     /**
      * @brief Sets the initial path

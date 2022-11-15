@@ -23,16 +23,17 @@ int main(void)
     };
 
     const std::string mode = ini.GetValue("common", "mode", "UNKNOWN");
+    const std::string inputDir = ini.GetValue("common", "input_dir", "./instances");
+    const std::string outputDir = ini.GetValue("common", "output_dir", "./results");
 
     if (mode == "file_instance_test")
     {
-        fileInstanceTest();
+        fileInstanceTest(inputDir, outputDir);
     }
     else if (mode == "random_instance_test")
     {
-        randomInstanceTest();
+        randomInstanceTest(outputDir);
     }
-
     else
     {
         printf("Wrong mode value.\n");
@@ -42,11 +43,8 @@ int main(void)
     return 0;
 }
 
-void fileInstanceTest()
+void fileInstanceTest(std::string inputDir, std::string outputDir)
 {
-    const std::string inputDir = ini.GetValue("common", "input_dir", "./instances");
-    const std::string outputDir = ini.GetValue("common", "output_dir", "./results");
-
     const int instanceCount = atoi(ini.GetValue("file_instance_test", "number_of_instances", "1"));
     const auto params = getAlorithmParams();
 
@@ -76,7 +74,7 @@ void fileInstanceTest()
         printf("Graph read from file:\n");
         graph->display();
 
-        Tests::fileInstanceTest(graph, iterCount, instanceName, outputFilePath);
+        Tests::fileInstanceTest(graph, iterCount, instanceName, outputFilePath, params);
 
         printf("Finished.\n");
         printf("Results saved to file.\n");
@@ -84,21 +82,21 @@ void fileInstanceTest()
     }
 }
 
-void randomInstanceTest()
+void randomInstanceTest(std::string outputDir)
 {
     printf("Random instance test\n\n");
+    const char *tag = "random_instance_test";
+    const auto params = getAlorithmParams();
 
-    const std::string outputDir = ini.GetValue("common", "output_dir", "./results");
+    const int minSize = atoi(ini.GetValue(tag, "min_size", "1"));
+    const int maxSize = atoi(ini.GetValue(tag, "max_size", "1"));
+    const int instanceCountPerSize = atoi(ini.GetValue(tag, "instance_num_per_size", "1"));
+    const int iterCountPerInstance = atoi(ini.GetValue(tag, "iter_num_per_instance", "1"));
+    const std::string outputFile = ini.GetValue(tag, "output", "UNKNOWN");
 
-    const char *iniSection = "random_instance_test";
-    const int minSize = atoi(ini.GetValue(iniSection, "min_size", "1"));
-    const int maxSize = atoi(ini.GetValue(iniSection, "max_size", "1"));
-    const int instanceCountPerSize = atoi(ini.GetValue(iniSection, "instance_num_per_size", "1"));
-    const int iterCountPerInstance = atoi(ini.GetValue(iniSection, "iter_num_per_instance", "1"));
-    const std::string outputFile = ini.GetValue(iniSection, "output", "UNKNOWN");
     const std::string outputFilePath = outputDir + "/" + outputFile;
 
-    Tests::randomInstanceTest(minSize, maxSize, iterCountPerInstance, instanceCountPerSize, outputFilePath);
+    Tests::randomInstanceTest(minSize, maxSize, iterCountPerInstance, instanceCountPerSize, outputFilePath, params);
 }
 
 AlgorithmParams getAlorithmParams()

@@ -8,6 +8,7 @@
 
 #include "TSPAlgorithm.hpp"
 #include "Path.hpp"
+#include "AlgorithmParams.hpp"
 
 class SimulatedAnnealing : public TSPAlgorithm
 {
@@ -42,7 +43,7 @@ public:
      *
      * @param graph The graph on which the algorithm is executed.
      */
-    SimulatedAnnealing(GraphMatrix *graph);
+    SimulatedAnnealing(GraphMatrix *graph, AlgorithmParams params);
 
     /**
      * @brief Solves the Traveling Salesman Problem using the Simulated Anealing algorithm.

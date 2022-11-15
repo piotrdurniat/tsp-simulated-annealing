@@ -9,7 +9,7 @@
 #include "Path.hpp"
 #include "SimulatedAnnealing.hpp"
 
-void Tests::fileInstanceTest(GraphMatrix *graph, int iterCount, std::string instanceName, std::string outputPath)
+void Tests::fileInstanceTest(GraphMatrix *graph, int iterCount, std::string instanceName, std::string outputPath, AlgorithmParams params)
 {
     FileUtils::writeInstanceTestHeader(outputPath);
     Timer timer;
@@ -17,11 +17,9 @@ void Tests::fileInstanceTest(GraphMatrix *graph, int iterCount, std::string inst
     for (int i = 0; i < iterCount; ++i)
     {
         timer.start();
-        SimulatedAnnealing alg(graph);
+        SimulatedAnnealing alg(graph, params);
         Path path = alg.solveTSP();
         const unsigned long elapsedTime = timer.getElapsedNs();
-
-        bool isCorrect = path.weight == graph->optimum;
 
         TestResult testResult(instanceName, graph->getVertexCount(), elapsedTime, path, path.prd);
 
@@ -29,7 +27,7 @@ void Tests::fileInstanceTest(GraphMatrix *graph, int iterCount, std::string inst
     }
 }
 
-void Tests::randomInstanceTest(int minSize, int maxSize, int iterCountPerInstance, int instanceCountPerSize, std::string outputPath)
+void Tests::randomInstanceTest(int minSize, int maxSize, int iterCountPerInstance, int instanceCountPerSize, std::string outputPath, AlgorithmParams params)
 {
     FileUtils::writeRandomInstanceTestHeader(outputPath);
     Timer timer;
@@ -48,7 +46,7 @@ void Tests::randomInstanceTest(int minSize, int maxSize, int iterCountPerInstanc
             for (int j = 0; j < iterCountPerInstance; ++j)
             {
                 timer.start();
-                SimulatedAnnealing alg(graph);
+                SimulatedAnnealing alg(graph, params);
                 Path path = alg.solveTSP();
                 averageTime += timer.getElapsedNs();
             }
@@ -61,7 +59,7 @@ void Tests::randomInstanceTest(int minSize, int maxSize, int iterCountPerInstanc
     printf("Done. Saved to file.\n");
 }
 
-void Tests::testAlgorithm(std::vector<std::string> instances)
+void Tests::testAlgorithm(std::vector<std::string> instances, AlgorithmParams params)
 {
 
     for (std::string instanceName : instances)
@@ -69,7 +67,7 @@ void Tests::testAlgorithm(std::vector<std::string> instances)
         GraphMatrix *graph;
         graph = FileUtils::loadGraph(instanceName);
 
-        SimulatedAnnealing alg(graph);
+        SimulatedAnnealing alg(graph, params);
         Path path = alg.solveTSP();
         const bool correctRes = path.weight == graph->optimum;
 

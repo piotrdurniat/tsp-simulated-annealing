@@ -2,10 +2,12 @@
 #include <chrono>
 #include <cmath>
 
-SimulatedAnnealing::SimulatedAnnealing(GraphMatrix *graph) : TSPAlgorithm(graph)
+SimulatedAnnealing::SimulatedAnnealing(GraphMatrix *graph, AlgorithmParams params) : TSPAlgorithm(graph)
 {
-    // TODO: improve calculation of this value
-    maxNoImprovementIters = 10000 * graph->getVertexCount();
+    this->maxNoImprovementIters = 10000 * graph->getVertexCount();
+    this->maxExecutionTime = params.maxExecutionTimeMs;
+    this->initialPathMode = params.initialPathMode;
+    this->neighborMode = params.neighborMode;
 }
 
 double SimulatedAnnealing::getAverageEdgeWeight()

@@ -5,8 +5,10 @@ CSimpleIniA ini;
 
 int main(void);
 
-void fileInstanceTest();
+// Tests on instances from files
+void fileInstanceTest(std::string inputDir, std::string outputDir);
 
-void randomInstanceTest();
+// Tests on random instances
+void randomInstanceTest(std::string outputDir);
 
 AlgorithmParams getAlorithmParams();
