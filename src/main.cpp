@@ -110,8 +110,7 @@ AlgorithmParams getAlorithmParams()
     std::string initialPathModeStr = ini.GetValue(tag, "initial_path_mode", "greedy");
     std::string neighborModeStr = ini.GetValue(tag, "neighbor_mode", "swap");
     float coolingRate = std::stof(ini.GetValue(tag, "cooling_rate", "0.999"));
-
-    std::cout << initialPathModeStr;
+    float temperatureCoefficient = std::stof(ini.GetValue(tag, "temp_coeff", "100.0"));
 
     initialPathMode = initialPathModeStr == "greedy" ? Greedy : InOrder;
     neighborMode = neighborModeStr == "swap" ? Swap : Invert;
@@ -120,7 +119,8 @@ AlgorithmParams getAlorithmParams()
         maxExecTimeMs,
         initialPathMode,
         neighborMode,
-        coolingRate);
+        coolingRate,
+        temperatureCoefficient);
 
     params.print();
     return params;

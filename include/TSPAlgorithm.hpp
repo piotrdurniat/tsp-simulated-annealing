@@ -143,6 +143,7 @@ public:
     int getGreedyPathWeight();
 
     int getInOrderPathWeight();
+    bool pathIsValid(int *path);
 };
 
 #endif

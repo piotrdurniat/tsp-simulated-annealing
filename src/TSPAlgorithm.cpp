@@ -1,5 +1,8 @@
 
 #include "TSPAlgorithm.hpp"
+#include <algorithm>
+#include <numeric>
+#include <iterator>
 
 TSPAlgorithm::TSPAlgorithm(GraphMatrix *graph)
 {
@@ -27,6 +30,7 @@ void TSPAlgorithm::setInitialPath()
     {
         initialPathInOrder();
     }
+    copyPath(currentPath, bestFoundPath);
 }
 
 void TSPAlgorithm::initialPathInOrder()
@@ -315,4 +319,21 @@ float TSPAlgorithm::getPrd(int pathWeight)
 {
     const int optimum = graph->getOptimum();
     return (100.0 * (pathWeight - optimum)) / optimum;
+}
+
+bool TSPAlgorithm::pathIsValid(int *path)
+{
+
+    for (int i = 0; i < graphSize; i++)
+    {
+        if (path[i] < 0 || path[i] >= graphSize)
+            return false;
+    }
+
+    int *pathCopy = new int[graphSize];
+    copyPath(path, pathCopy);
+    std::sort(pathCopy, pathCopy + graphSize);
+    auto pos = std::adjacent_find(pathCopy, pathCopy + graphSize);
+    delete[] pathCopy;
+    return pos == pathCopy + graphSize;
 }

@@ -13,7 +13,8 @@
 class SimulatedAnnealing : public TSPAlgorithm
 {
 private:
-    double coolingRate = 0.999;
+    float coolingRate;
+    float temperatureCoefficient;
 
     // The iteration number
     int iteration;

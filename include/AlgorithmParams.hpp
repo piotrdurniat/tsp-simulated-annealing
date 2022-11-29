@@ -10,6 +10,7 @@ struct AlgorithmParams
     InitialPathMode initialPathMode;
     NeighborMode neighborMode;
     float coolingRate;
+    float temperatureCoefficient;
 
     AlgorithmParams(){};
 
@@ -17,13 +18,15 @@ struct AlgorithmParams
         int maxExecutionTimeMs,
         InitialPathMode initialPathMode,
         NeighborMode neighborMode,
-        float coolingRate)
+        float coolingRate,
+        float temperatureCoefficient)
     {
 
         this->maxExecutionTimeMs = maxExecutionTimeMs;
         this->initialPathMode = initialPathMode;
         this->neighborMode = neighborMode;
         this->coolingRate = coolingRate;
+        this->temperatureCoefficient = temperatureCoefficient;
     }
 
     void print()
@@ -35,6 +38,7 @@ struct AlgorithmParams
         printf("Initial path mode: %s\n", initialPathModeStr.c_str());
         printf("neighbor mode: %s\n", neighborModeStr.c_str());
         printf("Cooling rate: %.4f\n", coolingRate);
+        printf("Temperature coefficient: %.4f\n", temperatureCoefficient);
     }
 };
 

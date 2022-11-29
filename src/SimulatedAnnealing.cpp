@@ -4,10 +4,12 @@
 
 SimulatedAnnealing::SimulatedAnnealing(GraphMatrix *graph, AlgorithmParams params) : TSPAlgorithm(graph)
 {
-    this->maxNoImprovementIters = 10000 * graph->getVertexCount();
+    this->maxNoImprovementIters = 20000 * graph->getVertexCount();
     this->maxExecutionTime = params.maxExecutionTimeMs;
     this->initialPathMode = params.initialPathMode;
     this->neighborMode = params.neighborMode;
+    this->temperatureCoefficient = params.temperatureCoefficient;
+    this->coolingRate = params.coolingRate;
 }
 
 double SimulatedAnnealing::getAverageEdgeWeight()
@@ -50,14 +52,14 @@ double SimulatedAnnealing::getEdgeWeightAAD()
 double SimulatedAnnealing::getInitialTemperature()
 {
     double averageDeviation = getEdgeWeightAAD();
-    // printf("avr abs dev: %f\n", averageDeviation);
-    return 100.0 * averageDeviation;
+    return temperatureCoefficient * averageDeviation;
 }
 
 Path SimulatedAnnealing::solveTSP()
 {
 
     setInitialPath();
+
     this->currentPathWeight = getCurrentPathWeight();
     this->initialPathWeight = currentPathWeight;
     this->bestFoundPathWeight = currentPathWeight;
@@ -73,7 +75,7 @@ Path SimulatedAnnealing::solveTSP()
     do
     {
         temperature = temperature * coolingRate;
-        // printf("temp: %f\n", temperature);
+        printf("temp: %f\n", temperature);
 
         getNextPathPermutation();
 
