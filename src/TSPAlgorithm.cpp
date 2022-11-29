@@ -46,13 +46,15 @@ void TSPAlgorithm::initialPathGreedy()
     // Array holding information about available vertices
     bool availableVerices[graphSize];
 
-    for (int i = 1; i < graphSize; ++i)
+    for (int i = 0; i < graphSize; ++i)
     {
         availableVerices[i] = true;
     }
 
-    currentPath[0] = 0;
-    availableVerices[0] = false;
+    const int firstVertex = random() % graphSize;
+
+    currentPath[0] = firstVertex;
+    availableVerices[firstVertex] = false;
 
     for (int i = 1; i < graphSize; ++i)
     {

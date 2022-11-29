@@ -100,7 +100,8 @@ def main():
         time_list = rm_outliers(time_list)
 
         average_time = get_average(time_list)
-        average_prd = get_average(prd_list)
+        # average_prd = get_average(prd_list)
+        average_prd = min(prd_list)
 
         average_time = round(average_time, 2)
         average_prd = round(average_prd, 2)
