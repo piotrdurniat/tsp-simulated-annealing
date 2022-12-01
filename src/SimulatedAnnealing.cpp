@@ -100,13 +100,8 @@ Path SimulatedAnnealing::solveTSP()
 
 void SimulatedAnnealing::getNextPathPermutation()
 {
-    int index1;
-    int index2;
-    do
-    {
-        index1 = randomPathIndex();
-        index2 = randomPathIndex();
-    } while (index1 == index2 || index1 == 0 || index2 == 0);
+    int index1 = 1 + random() % (graphSize - 2);
+    int index2 = index1 + 1 + random() % (graphSize - index1 - 1);
 
     switch (neighborMode)
     {
@@ -128,7 +123,6 @@ double SimulatedAnnealing::transitionProbability(double temperature)
     else
     {
         double p = exp(((double)(currentPathWeight - nextPathWeight)) / temperature);
-        // printf("probability: %f\n", p);
         return p;
     }
 }

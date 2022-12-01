@@ -61,7 +61,7 @@ void TSPAlgorithm::initialPathGreedy()
 
         int minPathWeight = INT_MAX;
         int closestVertex;
-        for (int j = 1; j < graphSize; ++j)
+        for (int j = 0; j < graphSize; ++j)
         {
             if (availableVerices[j])
             {
@@ -98,7 +98,7 @@ int TSPAlgorithm::getCurrentPathWeight()
     {
         sum += graph->getWeight(currentPath[i], currentPath[i + 1]);
     }
-    sum += graph->getWeight(currentPath[graphSize - 1], 0);
+    sum += graph->getWeight(currentPath[graphSize - 1], currentPath[0]);
     return sum;
 }
 
