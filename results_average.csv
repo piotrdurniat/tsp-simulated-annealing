@@ -1,4 +1,4 @@
-nazwa instancji,liczba wierzchołków,|średni czas [ns], średni błąd [%]|
+instance name,vertex count,average time [ns],average prd [%]
 m6.atsp,6,327177457.0,0.0
 m10.atsp,10,736717773.56,0.0
 burma14.tsp,14,1032210140.33,0.0
@@ -6,7 +6,7 @@ gr24.tsp,24,1464025451.22,0.0
 bays29.tsp,29,1702901953.9,3.22
 ftv33.atsp,34,1897173795.6,7.39
 ftv44.atsp,45,2303092494.8,13.08
-att48.tsp,48,2573910525.0,8.73
+att48.tsp,48,8033049836.5,12.65
 berlin52.tsp,52,2819943634.9,8.8
 ftv70.atsp,71,3293960664.0,17.28
 gr96.tsp,96,4364185214.5,20.38
